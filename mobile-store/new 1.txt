@@ -1,0 +1,67 @@
+<?php
+    include('server.php');
+    $prod_id=$_GET['prod_id'];
+    $query = "SELECT * FROM products WHERE prod_id='$prod_id'";
+    $result = mysqli_query($dbconn,$query);
+    while($res = mysqli_fetch_array($result)) {  
+    
+?>   
+                
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2" class="active"></li>
+                    </ol>
+                    <div class="carousel-inner" role="listbox">
+                        <div class="carousel-item active">
+                            <?php if($res['prod_pic1'] != ""): ?>
+                            <img class="d-block" src="../uploads/<?php echo $res['prod_pic1']; ?>" alt="First slide">
+                            <?php else: ?>
+                            <img src="../uploads/default.png">
+							  <?php endif; ?>
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5><?php echo $res['prod_name']; ?></h5>
+                            </div>
+                        </div>
+						
+						
+						
+						   <h5><br><br>
+        <ul><b>Serial number: 
+        <span style="color:green;"><?php echo $res['prod_serial']; ?></span></b>
+        </ul>
+        <ul><b>Product name: </b> 
+        <?php echo $res['name']; ?>
+        </ul>
+        <ul><b>category	: </b>
+        <?php echo $res['category']; ?>
+        </ul>
+        <ul><b>: </b>
+        
+        <ul><b>Price: </b>
+        <?php echo 'Php'.$res['prod_price'].''; ?>
+        </ul>
+        <ul>
+        <?php  $number_of_stock=$res['number_of_stock'];?> 
+        <?php
+        if ($number_of_stock==0){
+        ?>
+         <span style="color:red;">Product Sold Out!</span>   
+         <?php
+        }else{
+       ?>
+       <b>Items in stock: </b><?php echo $res['number_of_stock'];?>
+       </ul>
+       <?php 
+    }
+?>
+        <?php }?>
+        </h5>
+
+        
+       
+
+
+    </div>
+</div>
